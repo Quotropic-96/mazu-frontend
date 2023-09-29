@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
-import Link from "next/link";
 import Image from "next/image";
+import Button from "./components/Button/Button";
 
 export default function Home() {
   return (
@@ -29,7 +29,7 @@ export default function Home() {
         <p className="author">~ Sir Arthur Conan Doyle</p>
       </article>
       <nav>
-        <button>See the map</button>
+        <Button link="/maps" type="primary" text="See the map"></Button>
         <button>About this project</button>
       </nav>
     </main>
