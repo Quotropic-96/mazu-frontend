@@ -2,11 +2,11 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import Button from "./components/Button/Button";
 
-export default function Home() {
+const Home: React.FC =() => {
   return (
-    <main>
-      <header>
-        <div className="title_and_logo">
+    <main className={styles.main}>
+      <header className={styles.header}>
+        <div className={styles.titleAndLogo}>
           <Image
             src="/mazu-logo.svg"
             alt="Mazu main logo"
@@ -14,24 +14,40 @@ export default function Home() {
             height={100}
             className={styles.mainLogo}
           ></Image>
-          <h1 className="main-title">Mazu</h1>
+          <h1 className={styles.mainTitle}>Mazu</h1>
         </div>
-        <h3 className="subtitle">
+        <h3 className={styles.subtitle}>
           The Hitchhiker&apos;s Guide to Whale Watching
         </h3>
       </header>
 
       <article className={styles.quote}>
-        <p>
+        <p className={styles.quoteText}>
           It was a bewildering route for anyone who was not accustomed to face
           Nature in her wildest moods
         </p>
-        <p className="author">~ Sir Arthur Conan Doyle</p>
+        <p className={styles.quoteAuthor}>~ Sir Arthur Conan Doyle</p>
       </article>
-      <nav className="button-container">
+      <Image
+        src="/home-whale.svg"
+        alt="Page break motiv"
+        width={100}
+        height={200}
+        className={styles.homeWhaleImage}
+      ></Image>
+      <nav className={styles.buttonContainer}>
         <Button link="/maps" type="secondary" text="See the map"></Button>
         <Button link="/about" type="secondary" text="About this project"></Button>
       </nav>
+      <Image
+        src="/break.svg"
+        alt="Page break motiv"
+        width={50}
+        height={100}
+        className={styles.pageBreak}
+      ></Image>
     </main>
   );
-}
+};
+
+export default Home;

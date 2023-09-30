@@ -5,20 +5,29 @@
   --text-color: #2c3e50;
   --muted-color: #7f8c8d;
   --background-color: #ecf0f1;
-  --body-padding: 2vh;
-  --body-border-radius: 1vh
+  --body-margin: 1.5vh;
+  --body-border-radius: 1vh;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 html {
   background-color: white;
 }
 
-body {
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
+}
+
+body {
   background-color: var(--background-color);
   border-radius: var(--body-border-radius);
-  padding: var(--body-padding);
-  min-height: calc(100vh - var(--body-padding));
+  margin: var(--body-margin);
+  min-height: calc(100vh - 2 * var(--body-margin));
+  color: var(--text-color);
+}
+
+h1 {
+  font-family: "Josefin Sans", sans-serif;
 }
