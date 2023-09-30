@@ -28,9 +28,9 @@ export default function Home() {
         </p>
         <p className="author">~ Sir Arthur Conan Doyle</p>
       </article>
-      <nav>
-        <Button link="/maps" type="primary" text="See the map"></Button>
-        <button>About this project</button>
+      <nav className="button-container">
+        <Button link="/maps" type="secondary" text="See the map"></Button>
+        <Button link="/about" type="secondary" text="About this project"></Button>
       </nav>
     </main>
   );

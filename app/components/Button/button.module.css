@@ -1,0 +1,30 @@
+.generalButton {
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  border-radius: 5px;
+  padding: 10px;
+  text-decoration: none;
+  border: none;
+}
+
+.generalButton > a {
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.primary {
+  background-color: var(--primary-blue);
+}
+
+.primary > a {
+  color: white;
+}
+
+.secondary {
+  border: 2px solid var(--primary-blue);
+}
+
+.secondary > a {
+  color: var(--text-color);
+}
