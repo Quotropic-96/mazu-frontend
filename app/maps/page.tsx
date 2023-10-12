@@ -2,6 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import styles from "./page.module.css";
 
 const Map = () => {
   const [map, setMap] = useState<mapboxgl.Map | undefined>(undefined);
@@ -27,7 +28,7 @@ const Map = () => {
     }
     const mapboxMap = new mapboxgl.Map({
       container: node,
-      style: "mapbox://styles/quotropic/clmowfalm01zb01r42wn8dm1u",
+      style: "mapbox://styles/quotropic/clnnarcf4009j01p91yyt2wrh",
       center: [lon, lat],
       zoom: initialZoom,
       maxZoom: maxZoom,
@@ -36,11 +37,9 @@ const Map = () => {
 
     setMap(mapboxMap);
     setIsLoading(false);
-    console.log("changed loading");
   };
 
   useEffect(() => {
-    console.log("uesef");
     const node = mapNode.current;
     if (typeof window === "undefined" || node === null) return;
     // Get user's geolocation
@@ -70,16 +69,11 @@ const Map = () => {
   }, []);
 
   return (
-    <>
-      <div className="mapContainer">
-        {isLoading && <h2>Loading</h2>}
-        <div
-          ref={mapNode}
-          id="map"
-          style={{ width: "100%", height: "400px" }}
-        />
-      </div>
-    </>
+    <div className={`page ${styles.mapContainer}`}>
+      {isLoading && <h2>Loading</h2>}
+      <div ref={mapNode} className={styles.map} style={{ width: "100%", height: "calc(100vh - 2 * var(--body-margin))"}} />
+    </div>
+    
   );
 };
 

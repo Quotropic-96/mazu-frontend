@@ -167,3 +167,8 @@ body {
 h1 {
   font-family: "Josefin Sans", sans-serif;
 }
+
+.page {
+  min-height: calc(100vh - 2 * var(--body-margin));
+  border-radius: var(--body-border-radius);
+}

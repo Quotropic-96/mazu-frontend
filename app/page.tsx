@@ -4,7 +4,7 @@ import Button from "./components/Button/Button";
 
 const Home: React.FC =() => {
   return (
-    <main className={styles.main}>
+    <main className={`page ${styles.main}`}>
       <header className={styles.header}>
         <div className={styles.titleAndLogo}>
           <Image
