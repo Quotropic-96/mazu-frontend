@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import whaleService from '../services/whaleService';
 
 const MapMenu = () => {
   const initialSelectorsState = {
@@ -12,9 +13,22 @@ const MapMenu = () => {
     endMonth: '',
   };
   const [selectors, setSelectors] = useState(initialSelectorsState);
-  // const [whale, setWhale] = useState("");
-  // const [startMonth, setStartMonth] = useState("");
-  // const [endMonth, setEndMonth] = useState("");
+  const [whales, setWhales] = useState([]);
+  const [isError, setIsError] = useState(false);
+
+  const getWhales = async () => {
+    console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
+    try {
+      const response = await whaleService.getAllWhales();
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getWhales();
+  },[])
 
   const handleChange = (e: SelectChangeEvent) => {
     e.preventDefault();
