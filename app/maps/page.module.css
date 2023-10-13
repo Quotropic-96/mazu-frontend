@@ -2,7 +2,25 @@
   height: 100%;
 }
 
+.mapNav {
+  position: absolute;
+  top: 20px;
+  width: calc(100vw - 2 * var(--body-margin));
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+}
+
+.whaleName {
+  min-width: 50%;
+  text-align: center;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: var(--background-color);
+}
+
 .map {
   border-radius: var(--body-border-radius);
-
 }

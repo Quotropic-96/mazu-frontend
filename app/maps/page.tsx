@@ -14,14 +14,13 @@ const Map = () => {
   const defaultLon = 42;
   const initialZoom = 5;
   const maxZoom = 10;
-  const minZoom = .8;
+  const minZoom = 0.8;
 
   const initializeMap = (
     node: HTMLElement,
     lon: number | null,
     lat: number | null
   ): void => {
-    console.log("init map");
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "";
     if (!lon || !lat) {
       lon = defaultLon;
@@ -38,6 +37,10 @@ const Map = () => {
 
     setMap(mapboxMap);
     setIsLoading(false);
+  };
+
+  const toggleMenu = () => {
+    console.log("menu");
   };
 
   useEffect(() => {
@@ -71,11 +74,32 @@ const Map = () => {
 
   return (
     <div className={`page ${styles.mapContainer}`}>
-      {isLoading && <h2>Loading</h2>}
-      <div ref={mapNode} className={styles.map} style={{ width: "100%", height: "calc(100vh - 2 * var(--body-margin))"}} />
-      <Icon name='whale' image='/icons/whale.svg' callback={() => console.log('Hello')}></Icon>
+      {isLoading ? (
+        <h2>Loading</h2>
+      ) : (
+        <div className={styles.mapNav}>
+          <Icon
+            name="back"
+            image="/icons/back.svg"
+            callback={toggleMenu}
+          ></Icon>
+          <div className={styles.whaleName}>Humpback Whale</div>
+          <Icon
+            name="whale"
+            image="/icons/whale.svg"
+            callback={toggleMenu}
+          ></Icon>
+        </div>
+      )}
+      <div
+        ref={mapNode}
+        className={styles.map}
+        style={{
+          width: "100%",
+          height: "calc(100vh - 2 * var(--body-margin))",
+        }}
+      />
     </div>
-    
   );
 };
 
