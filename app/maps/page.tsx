@@ -13,13 +13,13 @@ const Map = () => {
   const defaultLon = 42;
   const initialZoom = 5;
   const maxZoom = 10;
-  const minZoom = 1;
+  const minZoom = .8;
 
   const initializeMap = (
     node: HTMLElement,
     lon: number | null,
     lat: number | null
-  ) => {
+  ): void => {
     console.log("init map");
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "";
     if (!lon || !lat) {
