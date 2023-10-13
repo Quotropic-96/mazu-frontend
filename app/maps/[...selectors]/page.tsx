@@ -6,7 +6,8 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./page.module.css";
 import Icon from "../../components/Icon/Icon";
 
-const Map = () => {
+const Map = ({ params }: any) => {
+  console.log(params);
   const [map, setMap] = useState<mapboxgl.Map | undefined>(undefined);
   const mapNode = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
