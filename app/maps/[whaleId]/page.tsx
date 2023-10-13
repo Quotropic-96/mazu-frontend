@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./page.module.css";
-import Icon from "../components/Icon/Icon";
+import Icon from "../../components/Icon/Icon";
 
 const Map = () => {
   const [map, setMap] = useState<mapboxgl.Map | undefined>(undefined);
