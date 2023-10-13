@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./page.module.css";
+import Icon from "../components/Icon/Icon";
 
 const Map = () => {
   const [map, setMap] = useState<mapboxgl.Map | undefined>(undefined);
@@ -72,6 +73,7 @@ const Map = () => {
     <div className={`page ${styles.mapContainer}`}>
       {isLoading && <h2>Loading</h2>}
       <div ref={mapNode} className={styles.map} style={{ width: "100%", height: "calc(100vh - 2 * var(--body-margin))"}} />
+      <Icon name='whale' image='/icons/whale.svg' callback={() => console.log('Hello')}></Icon>
     </div>
     
   );
