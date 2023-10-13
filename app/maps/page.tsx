@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./page.module.css";
@@ -9,6 +10,7 @@ const Map = () => {
   const [map, setMap] = useState<mapboxgl.Map | undefined>(undefined);
   const mapNode = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   const defaultLat = -70;
   const defaultLon = 42;
@@ -39,7 +41,11 @@ const Map = () => {
     setIsLoading(false);
   };
 
-  const toggleMenu = () => {
+  const goBack = (): void => {
+    router.back();
+  }
+
+  const toggleMenu = (): void => {
     console.log("menu");
   };
 
@@ -81,7 +87,7 @@ const Map = () => {
           <Icon
             name="back"
             image="/icons/back.svg"
-            callback={toggleMenu}
+            callback={goBack}
           ></Icon>
           <div className={styles.whaleName}>Humpback Whale</div>
           <Icon
