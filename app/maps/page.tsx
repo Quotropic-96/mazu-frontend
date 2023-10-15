@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import whaleService from "../services/whaleService";
@@ -24,6 +22,11 @@ type Whale = {
   scientificName: string;
   sizes: Array<Size>;
   curiosities: Array<string>;
+};
+
+type Error = {
+  isError: boolean;
+  errorMessage: string;
 };
 
 const MapMenu = () => {
@@ -48,10 +51,14 @@ const MapMenu = () => {
     startMonth: "startMonth",
     endMonth: "endMonth",
   };
-  const [isLoading, setIsLoading] = useState(true);
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectors, setSelectors] = useState(initialSelectorsState);
-  const [whales, setWhales] = useState(Array<Whale>);
-  const [isError, setIsError] = useState(false);
+  const [whales, setWhales] = useState<Array<Whale>>([]);
+  const [error, setError] = useState<Error>({
+    isError: false,
+    errorMessage: "",
+  });
 
   const getWhales = async () => {
     try {
@@ -60,8 +67,50 @@ const MapMenu = () => {
       setIsLoading(false);
     } catch (error) {
       console.error(error);
-      setIsError(true);
+      setError({
+        isError: true,
+        errorMessage: "Could not find Whales",
+      });
     }
+  };
+
+  const validateSelectors = (selectors: any): boolean => {
+    if (selectors.whale === initialSelectorsState.whale) {
+      setError({
+        isError: true,
+        errorMessage: "Select a whale",
+      });
+      return false;
+    }
+    if (whales.filter((whale) => {whale.name === selectors.whale}).length !== 0) {
+      setError({
+        isError: true,
+        errorMessage: "Invalid whale name",
+      });
+      return false;
+    }
+    if (selectors.startMonth < 1 || selectors.startMonth > 12) {
+      setError({
+        isError: true,
+        errorMessage: "Invalid start month",
+      });
+      return false;
+    }
+    if (selectors.endMonth < 1 || selectors.endMonth > 12) {
+      setError({
+        isError: true,
+        errorMessage: "Invalid end month",
+      });
+      return false;
+    }
+    if (selectors.startMonth > selectors.endMonth) {
+      setError({
+        isError: true,
+        errorMessage: "Start month can't be larger than end month",
+      });
+      return false;
+    }
+    return true;
   };
 
   useEffect(() => {
@@ -80,9 +129,13 @@ const MapMenu = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    router.push(
-      `/maps/${selectors.whale}/${selectors.startMonth}/${selectors.endMonth}`
-    );
+    if (validateSelectors(selectors)) {
+      router.push(
+        `/maps/${selectors.whale}/${selectors.startMonth}/${selectors.endMonth}`
+      );
+    } else {
+      setSelectors(initialSelectorsState);
+    }
   };
 
   return (
@@ -94,8 +147,12 @@ const MapMenu = () => {
       ></Icon>
       {!isLoading && (
         <form className={styles.form} onSubmit={handleSubmit}>
+          {error.isError && (
+            <div className="error">
+              <p>{error.errorMessage}</p>
+            </div>
+          )}
           <FormControl sx={{ m: 1, width: 300, minWidth: 80 }}>
-            {/* <InputLabel id="whaleLabel">Whale</InputLabel> */}
             <Select
               labelId="whaleLabel"
               id="whale"
@@ -123,7 +180,7 @@ const MapMenu = () => {
               onChange={handleChange}
             >
               <MenuItem disabled value="startMonth">
-                <em className={styles.placeHolder}>End Month</em>
+                <em className={styles.placeHolder}>Start Month</em>
               </MenuItem>
               {months.map((month, index) => (
                 <MenuItem key={index} value={index + 1}>
