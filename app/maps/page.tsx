@@ -27,7 +27,7 @@ type Whale = {
 };
 
 const MapMenu = () => {
-  const router = useRouter(); 
+  const router = useRouter();
   const months = [
     "January",
     "February",
@@ -44,9 +44,9 @@ const MapMenu = () => {
   ];
 
   const initialSelectorsState = {
-    whale: "",
-    startMonth: "",
-    endMonth: "",
+    whale: "Whale",
+    startMonth: "startMonth",
+    endMonth: "endMonth",
   };
   const [isLoading, setIsLoading] = useState(true);
   const [selectors, setSelectors] = useState(initialSelectorsState);
@@ -94,8 +94,8 @@ const MapMenu = () => {
       ></Icon>
       {!isLoading && (
         <form className={styles.form} onSubmit={handleSubmit}>
-          <FormControl sx={{ m:1, width: 300, minWidth: 80 }}>
-            <InputLabel id="whaleLabel">Whale</InputLabel>
+          <FormControl sx={{ m: 1, width: 300, minWidth: 80 }}>
+            {/* <InputLabel id="whaleLabel">Whale</InputLabel> */}
             <Select
               labelId="whaleLabel"
               id="whale"
@@ -104,6 +104,9 @@ const MapMenu = () => {
               required
               onChange={handleChange}
             >
+              <MenuItem disabled value="Whale">
+                <em className={styles.placeHolder}>Whale</em>
+              </MenuItem>
               {whales.map((whale) => (
                 <MenuItem key={whale._id} value={whale._id}>
                   {whale.name}
@@ -112,7 +115,6 @@ const MapMenu = () => {
             </Select>
           </FormControl>
           <FormControl sx={{ width: 300, minWidth: 80 }}>
-            <InputLabel id="startMonthLabel">Start Month</InputLabel>
             <Select
               labelId="startMonthLabel"
               id="startMonth"
@@ -120,23 +122,17 @@ const MapMenu = () => {
               name="startMonth"
               onChange={handleChange}
             >
-              <MenuItem value={1}>January</MenuItem>
-              <MenuItem value={2}>February</MenuItem>
-              <MenuItem value={3}>March</MenuItem>
-              <MenuItem value={4}>April</MenuItem>
-              <MenuItem value={5}>May</MenuItem>
-              <MenuItem value={6}>June</MenuItem>
-              <MenuItem value={7}>July</MenuItem>
-              <MenuItem value={8}>August</MenuItem>
-              <MenuItem value={9}>September</MenuItem>
-              <MenuItem value={10}>October</MenuItem>
-              <MenuItem value={11}>November</MenuItem>
-              <MenuItem value={12}>December</MenuItem>
-              <MenuItem value={undefined}>--</MenuItem>
+              <MenuItem disabled value="startMonth">
+                <em className={styles.placeHolder}>End Month</em>
+              </MenuItem>
+              {months.map((month, index) => (
+                <MenuItem key={index} value={index + 1}>
+                  {month}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <FormControl sx={{ width: 300, minWidth: 80 }}>
-            <InputLabel id="endMonthLabel">End Month</InputLabel>
             <Select
               labelId="endMonthLabel"
               id="endMonth"
@@ -144,19 +140,14 @@ const MapMenu = () => {
               name="endMonth"
               onChange={handleChange}
             >
-              <MenuItem value={1}>January</MenuItem>
-              <MenuItem value={2}>February</MenuItem>
-              <MenuItem value={3}>March</MenuItem>
-              <MenuItem value={4}>April</MenuItem>
-              <MenuItem value={5}>May</MenuItem>
-              <MenuItem value={6}>June</MenuItem>
-              <MenuItem value={7}>July</MenuItem>
-              <MenuItem value={8}>August</MenuItem>
-              <MenuItem value={9}>September</MenuItem>
-              <MenuItem value={10}>October</MenuItem>
-              <MenuItem value={11}>November</MenuItem>
-              <MenuItem value={12}>December</MenuItem>
-              <MenuItem value={undefined}>--</MenuItem>
+              <MenuItem disabled value="endMonth">
+                <em className={styles.placeHolder}>End Month</em>
+              </MenuItem>
+              {months.map((month, index) => (
+                <MenuItem key={index} value={index + 1}>
+                  {month}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <button type="submit" className={styles.submitButton}>
