@@ -85,7 +85,7 @@ const Map = ({ params }: any) => {
           <Icon
             name="back"
             image="/icons/back.svg"
-            callback={goBack}
+            callback={() => goBack(router)}
           ></Icon>
           <div className={styles.whaleName}>Humpback Whale</div>
           <Icon

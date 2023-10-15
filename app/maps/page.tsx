@@ -3,9 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import whaleService from "../services/whaleService";
+import goBack from "../utils/goBack";
+import Icon from "../components/Icon/Icon";
+import styles from "./page.module.css";
 
 type Size = {
   gender: string;
@@ -23,7 +27,22 @@ type Whale = {
 };
 
 const MapMenu = () => {
-  const router = useRouter();
+  const router = useRouter(); 
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   const initialSelectorsState = {
     whale: "",
     startMonth: "",
@@ -35,7 +54,6 @@ const MapMenu = () => {
   const [isError, setIsError] = useState(false);
 
   const getWhales = async () => {
-    console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
     try {
       const response = await whaleService.getAllWhales();
       setWhales(response);
@@ -62,14 +80,21 @@ const MapMenu = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    router.push(`/maps/${selectors.whale}/${selectors.startMonth}/${selectors.endMonth}`);
+    router.push(
+      `/maps/${selectors.whale}/${selectors.startMonth}/${selectors.endMonth}`
+    );
   };
 
   return (
-    <div>
+    <div className={`page ${styles.main}`}>
+      <Icon
+        name="back"
+        image="/icons/back.svg"
+        callback={() => goBack(router)}
+      ></Icon>
       {!isLoading && (
-        <form onSubmit={handleSubmit}>
-          <FormControl sx={{ width: 200, minWidth: 80 }}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <FormControl sx={{ m:1, width: 300, minWidth: 80 }}>
             <InputLabel id="whaleLabel">Whale</InputLabel>
             <Select
               labelId="whaleLabel"
@@ -86,7 +111,7 @@ const MapMenu = () => {
               ))}
             </Select>
           </FormControl>
-          <FormControl sx={{ width: 200, minWidth: 80 }}>
+          <FormControl sx={{ width: 300, minWidth: 80 }}>
             <InputLabel id="startMonthLabel">Start Month</InputLabel>
             <Select
               labelId="startMonthLabel"
@@ -110,7 +135,7 @@ const MapMenu = () => {
               <MenuItem value={undefined}>--</MenuItem>
             </Select>
           </FormControl>
-          <FormControl sx={{ width: 200, minWidth: 80 }}>
+          <FormControl sx={{ width: 300, minWidth: 80 }}>
             <InputLabel id="endMonthLabel">End Month</InputLabel>
             <Select
               labelId="endMonthLabel"
@@ -134,7 +159,9 @@ const MapMenu = () => {
               <MenuItem value={undefined}>--</MenuItem>
             </Select>
           </FormControl>
-          <button type="submit">See Map</button>
+          <button type="submit" className={styles.submitButton}>
+            See The Map
+          </button>
         </form>
       )}
     </div>

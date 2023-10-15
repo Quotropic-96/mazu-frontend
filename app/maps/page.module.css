@@ -1,0 +1,22 @@
+.main {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  margin-top: 50%;
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.submitButton {
+  width: 50%;
+  padding: 10px 20px;
+  border: 1px solid var(--primary-blue);
+  border-radius: 5px;
+}
