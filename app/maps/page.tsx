@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -22,6 +23,7 @@ type Whale = {
 };
 
 const MapMenu = () => {
+  const router = useRouter();
   const initialSelectorsState = {
     whale: "",
     startMonth: "",
@@ -60,6 +62,7 @@ const MapMenu = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    router.push(`/maps/${selectors.whale}/${selectors.startMonth}/${selectors.endMonth}`);
     console.log(selectors);
     console.log("submit");
   };
