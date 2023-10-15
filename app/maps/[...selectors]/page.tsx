@@ -5,6 +5,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./page.module.css";
 import Icon from "../../components/Icon/Icon";
+import goBack from '../../utils/goBack';
 
 const Map = ({ params }: any) => {
   console.log(params);
@@ -41,10 +42,6 @@ const Map = ({ params }: any) => {
     setMap(mapboxMap);
     setIsLoading(false);
   };
-
-  const goBack = (): void => {
-    router.back();
-  }
 
   const toggleMenu = (): void => {
     console.log("menu");

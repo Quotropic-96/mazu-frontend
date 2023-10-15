@@ -63,8 +63,6 @@ const MapMenu = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     router.push(`/maps/${selectors.whale}/${selectors.startMonth}/${selectors.endMonth}`);
-    console.log(selectors);
-    console.log("submit");
   };
 
   return (
@@ -78,6 +76,7 @@ const MapMenu = () => {
               id="whale"
               value={selectors.whale}
               name="whale"
+              required
               onChange={handleChange}
             >
               {whales.map((whale) => (
