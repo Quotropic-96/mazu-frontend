@@ -29,7 +29,7 @@ const MapMenu = () => {
     errorMessage: "",
   });
 
-  const getWhales = async () => {
+  const getWhales = async (): Promise<void> => {
     try {
       const response = await whaleService.getAllWhales();
       setWhales(response);
