@@ -82,21 +82,33 @@ const MapMenu = () => {
       });
       return false;
     }
-    if (whales.filter((whale) => {whale.name === selectors.whale}).length !== 0) {
+    if (
+      whales.filter((whale) => {
+        whale.name === selectors.whale;
+      }).length !== 0
+    ) {
       setError({
         isError: true,
         errorMessage: "Invalid whale name",
       });
       return false;
     }
-    if (selectors.startMonth < 1 || selectors.startMonth > 12) {
+    if (
+      selectors.startMonth < 1 ||
+      selectors.startMonth > 12 ||
+      typeof selectors.startMonth === "string"
+    ) {
       setError({
         isError: true,
         errorMessage: "Invalid start month",
       });
       return false;
     }
-    if (selectors.endMonth < 1 || selectors.endMonth > 12) {
+    if (
+      selectors.endMonth < 1 ||
+      selectors.endMonth > 12 ||
+      typeof selectors.endMonth === "string"
+    ) {
       setError({
         isError: true,
         errorMessage: "Invalid end month",
@@ -119,6 +131,12 @@ const MapMenu = () => {
 
   const handleChange = (e: SelectChangeEvent) => {
     e.preventDefault();
+    if (error.isError) {
+      setError({
+        isError: false,
+        errorMessage: "",
+      });
+    }
     setSelectors((prev) => {
       return {
         ...prev,
@@ -177,6 +195,7 @@ const MapMenu = () => {
               id="startMonth"
               value={selectors.startMonth}
               name="startMonth"
+              required
               onChange={handleChange}
             >
               <MenuItem disabled value="startMonth">
@@ -195,6 +214,7 @@ const MapMenu = () => {
               id="endMonth"
               value={selectors.endMonth}
               name="endMonth"
+              required
               onChange={handleChange}
             >
               <MenuItem disabled value="endMonth">
