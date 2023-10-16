@@ -129,6 +129,8 @@ const Map = ({ params }: any) => {
     const node = mapNode.current;
     if (typeof window === "undefined" || node === null) return;
     if (maps.length !== 0) {
+      // TODO
+      // Always renders just the first map
       renderMap(node, maps[0].url);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,7 +147,7 @@ const Map = ({ params }: any) => {
             image="/icons/back.svg"
             callback={() => goBack(router)}
           ></Icon>
-          <div className={styles.whaleName}>Humpback Whale</div>
+          {map && <div className={styles.whaleName}>{maps[0].whaleId.name}</div>}
           <Icon
             name="whale"
             image="/icons/whale.svg"
