@@ -9,10 +9,10 @@ import goBack from '../../utils/goBack';
 
 const Map = ({ params }: any) => {
   console.log(params);
-  const [map, setMap] = useState<mapboxgl.Map | undefined>(undefined);
-  const mapNode = useRef(null);
-  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const mapNode = useRef(null);
+  const [map, setMap] = useState<mapboxgl.Map | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const defaultLat = -70;
   const defaultLon = 42;
