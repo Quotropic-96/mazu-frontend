@@ -27,32 +27,37 @@ const Map = ({ params }: any) => {
   const initialZoom = 5;
   const maxZoom = 10;
   const minZoom = 0.8;
+  const defaultMapStyle = "mapbox://styles/quotropic/clnnarcf4009j01p91yyt2wrh";
 
   const validateSelectors = (selectors: Array<string>): boolean => {
     if (selectors.length < 3) {
       setError({
         isError: true,
-        errorMessage: 'Invlaid params'
-      })
+        errorMessage: "Invlaid params",
+      });
       return false;
     }
     return true;
-  }
+  };
 
   const getMaps = async (selectors: Array<string>): Promise<void> => {
     try {
-      const response = await mapService.getMapsFromSelectors(selectors[0], selectors[1], selectors[2]);
+      const response = await mapService.getMapsFromSelectors(
+        selectors[0],
+        selectors[1],
+        selectors[2]
+      );
       setMaps(response);
     } catch (error) {
       console.error(error);
       setError({
         isError: true,
-        errorMessage: "Could not retrieve maps"
-      })
+        errorMessage: "Could not retrieve maps",
+      });
     }
-  }
+  };
 
-  const renderMap = (node: HTMLElement): void => {
+  const renderMap = (node: HTMLElement, mapStyle: string): void => {
     // Get user's geolocation
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -60,7 +65,8 @@ const Map = ({ params }: any) => {
           initializeMap(
             node,
             position.coords.longitude,
-            position.coords.latitude
+            position.coords.latitude,
+            mapStyle
           );
           return () => {
             if (map) {
@@ -70,27 +76,29 @@ const Map = ({ params }: any) => {
         },
         (error) => {
           console.error("Geolocation error:", error);
-          initializeMap(node, null, null); // Fall back to using default coordinates
+          initializeMap(node, undefined, undefined, undefined); // Fall back to using default coordinates
         }
       );
     } else {
-      initializeMap(node, null, null); // Fall back to using default coordinates
+      initializeMap(node, undefined, undefined, undefined); // Fall back to using default coordinates
     }
   };
 
   const initializeMap = (
     node: HTMLElement,
-    lon: number | null,
-    lat: number | null
+    lon: number | undefined,
+    lat: number | undefined,
+    mapStyle: string | undefined
   ): void => {
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "";
     if (!lon || !lat) {
       lon = defaultLon;
       lat = defaultLat;
+      mapStyle = defaultMapStyle;
     }
     const mapboxMap = new mapboxgl.Map({
       container: node,
-      style: "mapbox://styles/quotropic/clnnarcf4009j01p91yyt2wrh",
+      style: mapStyle,
       center: [lon, lat],
       zoom: initialZoom,
       maxZoom: maxZoom,
@@ -111,11 +119,20 @@ const Map = ({ params }: any) => {
 
     if (validateSelectors(selectors)) {
       getMaps(selectors);
+    } else {
+      goBack(router);
     }
-
-    renderMap(node);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const node = mapNode.current;
+    if (typeof window === "undefined" || node === null) return;
+    if (maps.length !== 0) {
+      renderMap(node, maps[0].url);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [maps]);
 
   return (
     <div className={`page ${styles.mapContainer}`}>
