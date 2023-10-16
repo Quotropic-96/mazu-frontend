@@ -8,6 +8,7 @@ import whaleService from "../services/whaleService";
 import goBack from "../utils/goBack";
 import Icon from "../components/Icon/Icon";
 import styles from "./page.module.css";
+import Image from "next/image";
 
 type Size = {
   gender: string;
@@ -158,18 +159,25 @@ const MapMenu = () => {
 
   return (
     <div className={`page ${styles.main}`}>
-      <Icon
-        name="back"
-        image="/icons/back.svg"
-        callback={() => goBack(router)}
-      ></Icon>
+      <header className={styles.header}>
+        <div className={styles.iconAndName}>
+          <Icon
+            name="back"
+            image="/icons/back.svg"
+            callback={() => goBack(router)}
+          ></Icon>
+          <h1 className={styles.mainTitle}>Mazu</h1>
+        </div>
+        <Image
+          src="/break.svg"
+          alt="Page break motiv"
+          width={50}
+          height={100}
+          className={styles.pageBreak}
+        ></Image>
+      </header>
       {!isLoading && (
         <form className={styles.form} onSubmit={handleSubmit}>
-          {error.isError && (
-            <div className="error">
-              <p>{error.errorMessage}</p>
-            </div>
-          )}
           <FormControl sx={{ m: 1, width: 300, minWidth: 80 }}>
             <Select
               labelId="whaleLabel"
@@ -228,8 +236,13 @@ const MapMenu = () => {
             </Select>
           </FormControl>
           <button type="submit" className={styles.submitButton}>
-            See The Map
+            Go to the map
           </button>
+          {error.isError && (
+            <div className={styles.errorMessage}>
+              <p>{error.errorMessage}</p>
+            </div>
+          )}
         </form>
       )}
     </div>

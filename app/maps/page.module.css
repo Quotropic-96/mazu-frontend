@@ -1,11 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 .main {
   padding: 20px;
   display: flex;
   flex-direction: column;
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10%;
+}
+
+.iconAndName {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5%;
+}
+
+.mainTitle {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-top: 10px;
+}
+
+.pageBreak {
+  width: calc((100% - 2 * var(--body-margin) - 2 * 10px));
+  height: 15px;
+}
+
 .form {
-  margin-top: 50%;
   height: 70%;
   width: 100%;
   display: flex;
@@ -15,12 +43,18 @@
 }
 
 .submitButton {
-  width: 50%;
-  padding: 10px 20px;
-  border: 1px solid var(--primary-blue);
+  width: 150px;
   border-radius: 5px;
+  padding: 10px;
+  background-color: var(--primary-blue);
+  color: white;
+  font-weight: 500;
 }
 
 .placeHolder {
   color: var(--muted-color);
+}
+
+.errorMessage {
+  color: var(--accent-color);
 }

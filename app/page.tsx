@@ -12,7 +12,6 @@ const Home: React.FC =() => {
             alt="Mazu main logo"
             width={100}
             height={100}
-            className={styles.mainLogo}
           ></Image>
           <h1 className={styles.mainTitle}>Mazu</h1>
         </div>
@@ -30,9 +29,10 @@ const Home: React.FC =() => {
       </article>
       <Image
         src="/home-whale.svg"
-        alt="Page break motiv"
+        alt="Whale drawing"
         width={100}
         height={200}
+        priority={true}
         className={styles.homeWhaleImage}
       ></Image>
       <nav className={styles.buttonContainer}>
