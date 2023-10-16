@@ -9,44 +9,12 @@ import goBack from "../utils/goBack";
 import Icon from "../components/Icon/Icon";
 import styles from "./page.module.css";
 import Image from "next/image";
-
-type Size = {
-  gender: string;
-  length: number;
-  _id: string;
-};
-
-type Whale = {
-  _id: string;
-  name: string;
-  otherNames: Array<string>;
-  scientificName: string;
-  sizes: Array<Size>;
-  curiosities: Array<string>;
-};
-
-type Error = {
-  isError: boolean;
-  errorMessage: string;
-};
+import { Whale } from "../types/Whale";
+import { Error } from "../types/Error";
+import months from "../utils/months";
 
 const MapMenu = () => {
   const router = useRouter();
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   const initialSelectorsState = {
     whale: "Whale",
     startMonth: "startMonth",
